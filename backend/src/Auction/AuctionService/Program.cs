@@ -1,4 +1,6 @@
 using AuctionService.Data;
+using AuctionService.Mappers;
+using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +16,18 @@ builder.Services.AddDbContext<AuctionDbContext>(opt =>
 {
     opt.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
+
+// Add AutoMapper
+var configuration = new MapperConfiguration(cfg =>
+{
+    cfg.ShouldMapProperty = p => p.GetMethod.IsPublic || p.GetMethod.IsAssembly;
+    cfg.AddProfile<MappingProfiles>();
+});
+#if DEBUG
+configuration.AssertConfigurationIsValid();
+#endif
+// use DI (http://docs.automapper.org/en/latest/Dependency-injection.html) or create the mapper yourself
+builder.Services.AddSingleton(configuration.CreateMapper());
 
 var app = builder.Build();
 
