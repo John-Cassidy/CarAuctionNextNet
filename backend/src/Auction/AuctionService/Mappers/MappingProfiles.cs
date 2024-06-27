@@ -8,11 +8,11 @@ public class MappingProfiles : Profile
 {
     public MappingProfiles()
     {
-        CreateMap<Auction, AuctionDto>().IncludeMembers(auction => auction.Item);
-        CreateMap<Item, AuctionDto>();
+        CreateMap<Auction, AuctionDto>().IncludeMembers(x => x.Item).PreserveReferences();
+        CreateMap<Item, AuctionDto>().PreserveReferences();
         CreateMap<CreateAuctionDto, Auction>()
-            .ForMember(auction => auction.Item,
-            opt => opt.MapFrom(s => s));
+            .ForMember(d => d.Item,
+            o => o.MapFrom(s => s));
         CreateMap<CreateAuctionDto, Item>();
     }
 }

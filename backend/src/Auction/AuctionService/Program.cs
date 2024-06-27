@@ -20,12 +20,8 @@ builder.Services.AddDbContext<AuctionDbContext>(opt =>
 // Add AutoMapper
 var configuration = new MapperConfiguration(cfg =>
 {
-    cfg.ShouldMapProperty = p => p.GetMethod.IsPublic || p.GetMethod.IsAssembly;
     cfg.AddProfile<MappingProfiles>();
 });
-#if DEBUG
-configuration.AssertConfigurationIsValid();
-#endif
 // use DI (http://docs.automapper.org/en/latest/Dependency-injection.html) or create the mapper yourself
 builder.Services.AddSingleton(configuration.CreateMapper());
 
