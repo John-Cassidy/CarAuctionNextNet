@@ -10,6 +10,8 @@ dotnet tool install --global [TOOL_NAME] --version x.x.x
 dotnet tool update --global [TOOL_NAME] #updates to latest version
 ```
 
+## AuctionService - Postgres DB
+
 ### dotnet-ef - Use for Migrations
 
 Install globally
@@ -82,3 +84,8 @@ docker-compose -f docker-compose.yml up -d
 # NOTE: STOP RUNNING CONTAINERS AND REMOVE CONTAINERS
 docker-compose -f docker-compose.yml down
 ```
+
+## SearchService - MongoDB
+
+Nuget package: MongoDB.Entities
+[MongoDB.Entities Project URL](https://mongodb-entities.com/)
