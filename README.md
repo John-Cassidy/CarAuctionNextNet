@@ -87,5 +87,20 @@ docker-compose -f docker-compose.yml down
 
 ## SearchService - MongoDB
 
-Nuget package: MongoDB.Entities
-[MongoDB.Entities Project URL](https://mongodb-entities.com/)
+Nuget packages:
+
+- MongoDB.Entities: [MongoDB.Entities Project URL](https://mongodb-entities.com/)
+- Polly:
+
+  - [https://github.com/App-vNext/Polly](https://github.com/App-vNext/Polly)
+  - [https://www.thepollyproject.org/](https://www.thepollyproject.org/)
+
+- Microsoft.Extensions.Http.Resilience (Replaces Microsoft.Extensions.Http.Polly): [Docs on Replacing Polly with this Package](https://devblogs.microsoft.com/dotnet/building-resilient-cloud-services-with-dotnet-8/)
+
+The new HTTP resilience packages are build upon the foundations of Polly, presenting the .NET community with dedicated and refined HTTP-based resilience APIs.
+
+Resilience packages:
+
+- Microsoft.Extensions.Resilience: This package provides a minimal set of APIs. Its primary purpose is to enrich Polly’s metrics using the AddResilienceEnricher extension for IServiceCollection. For more details, refer to the Resilience docs.
+- Microsoft.Extensions.Http.Resilience: This package offers HTTP-specific APIs that integrate with Polly v8 and IHttpClientFactory. It is the successor to the Microsoft.Extensions.Http.Polly package and is recommended for all new projects. See the section below for more information.
+- Microsoft.Extensions.Http.Polly: This package integrates older versions of Polly with HttpClient and IHttpClientFactory.
