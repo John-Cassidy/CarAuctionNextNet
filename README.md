@@ -104,3 +104,35 @@ Resilience packages:
 - Microsoft.Extensions.Resilience: This package provides a minimal set of APIs. Its primary purpose is to enrich Polly’s metrics using the AddResilienceEnricher extension for IServiceCollection. For more details, refer to the Resilience docs.
 - Microsoft.Extensions.Http.Resilience: This package offers HTTP-specific APIs that integrate with Polly v8 and IHttpClientFactory. It is the successor to the Microsoft.Extensions.Http.Polly package and is recommended for all new projects. See the section below for more information.
 - Microsoft.Extensions.Http.Polly: This package integrates older versions of Polly with HttpClient and IHttpClientFactory.
+
+## RabbitMQ
+
+### Overview
+
+Message Broker used for asynchronous communication between microservices.
+
+Image: rabbitmq:3-management-alpine
+
+- Message Broker
+- Management Utility
+
+Type of Exchange: Fanout
+
+Nuget packages:
+
+- MassTransit.RabbitMQ: [https://masstransit.io/](https://masstransit.io/)
+
+### RabbitMQ Management
+
+[Local Development URL:](http://localhost:15672/)
+username: guest
+password: guest
+
+### MassTransit
+
+Used by microservices to communicate with each other via RabbitMQ.
+
+- Message Routing: Type-based publish/subscribe and automatic broker topology configuration
+- Exception Handling: When an exception is thrown, messages can be retried, redelivered, or moved to an error queue
+- Test Harness: Fast, in-memory unit tests with consumed, published, and sent message observers
+- Dependency Injection: Service collection configuration and scope service provider management

@@ -1,6 +1,7 @@
 using AuctionService.Data;
 using AuctionService.Mappers;
 using AutoMapper;
+using MassTransit;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -24,6 +25,15 @@ var configuration = new MapperConfiguration(cfg =>
 });
 // use DI (http://docs.automapper.org/en/latest/Dependency-injection.html) or create the mapper yourself
 builder.Services.AddSingleton(configuration.CreateMapper());
+
+// Add MassTransit
+builder.Services.AddMassTransit(x =>
+{
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.ConfigureEndpoints(context);
+    });
+});
 
 var app = builder.Build();
 
