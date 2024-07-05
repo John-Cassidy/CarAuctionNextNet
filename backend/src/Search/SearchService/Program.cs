@@ -1,11 +1,14 @@
 using System.Net;
+using AutoMapper;
 using MassTransit;
 using MongoDB.Driver;
 using MongoDB.Entities;
 using Polly;
 using Polly.Extensions.Http;
 using Polly.Timeout;
+using SearchService.Consumers;
 using SearchService.Data;
+using SearchService.Mappers;
 using SearchService.Models;
 using SearchService.Services;
 
@@ -20,9 +23,21 @@ builder.Services.AddHttpClient<AuctionSvcHttpClient>().AddPolicyHandler(GetPolic
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add AutoMapper
+var configuration = new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile<MappingProfiles>();
+});
+// use DI (http://docs.automapper.org/en/latest/Dependency-injection.html) or create the mapper yourself
+builder.Services.AddSingleton(configuration.CreateMapper());
+
 // Add MassTransit
 builder.Services.AddMassTransit(x =>
 {
+    x.AddConsumersFromNamespaceContaining<AuctionCreatedConsumer>();
+
+    x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("search", false));
+
     x.UsingRabbitMq((context, cfg) =>
     {
         cfg.ConfigureEndpoints(context);
