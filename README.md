@@ -136,3 +136,62 @@ Used by microservices to communicate with each other via RabbitMQ.
 - Exception Handling: When an exception is thrown, messages can be retried, redelivered, or moved to an error queue
 - Test Harness: Fast, in-memory unit tests with consumed, published, and sent message observers
 - Dependency Injection: Service collection configuration and scope service provider management
+
+### Outbox Pattern
+
+[Overview](https://masstransit.io/documentation/patterns/transactional-outbox)
+[Configuration](https://masstransit.io/documentation/configuration/middleware/outbox#configuration)
+
+Add Nuget Package to AuctionService: MassTransit.EntityFrameworkCore
+
+Use this package to configure and store the message being sent to message broker in PostgreSQL db. Once the message is successfully sent to message broker, remove message from PostgreSQL db.
+
+```csharp
+// AuctionService => Program.cs
+// Add MassTransit
+builder.Services.AddMassTransit(x =>
+{
+    // add entityframework outbox pattern
+    x.AddEntityFrameworkOutbox<AuctionDbContext>(o =>
+    {
+        o.QueryDelay = TimeSpan.FromSeconds(10);
+
+        o.UsePostgres();
+        o.UseBusOutbox();
+    });
+
+    x.UsingRabbitMq((context, cfg) =>
+    {
+        cfg.ConfigureEndpoints(context);
+    });
+});
+
+// AuctionService => AuctionDbContext.cs
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        base.OnModelCreating(modelBuilder);
+
+        // Add MassTransit - Outbox Pattern tables to PostgreSQL DB
+        modelBuilder.AddInboxStateEntity();
+        modelBuilder.AddOutboxMessageEntity();
+        modelBuilder.AddOutboxStateEntity();
+    }
+
+// AuctionService => AuctionsController => CreateAuction API
+        // Using the Outbox pattern, MessageBroker messages are saved in the Outbox table
+        // and are only sent to the MessageBroker after the DB transaction is committed
+        // NOTE: if the DB transaction fails, the message will not be sent
+        await _context.Auctions.AddAsync(auction);
+        var newAuction = _mapper.Map<AuctionDto>(auction);
+        await _publishEndpoint.Publish(_mapper.Map<AuctionCreated>(newAuction));
+        var result = await _context.SaveChangesAsync() > 0;
+```
+
+```powershell
+# Add migration to AuctionService
+dotnet ef migrations add Outbox -o Data/Migrations
+
+# To apply any pending migrations to the database, effectively updating the database schema.
+# If no migrations are pending, this command has no effect.
+dotnet ef database update
+```

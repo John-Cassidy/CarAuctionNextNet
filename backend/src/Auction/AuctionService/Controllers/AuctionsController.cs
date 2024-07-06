@@ -59,11 +59,13 @@ public class AuctionsController : ControllerBase
         // placeholder for Seller
         auction.Seller = "test";
 
+        // Using the Outbox pattern, MessageBroker messages are saved in the Outbox table
+        // and are only sent to the MessageBroker after the DB transaction is committed
+        // NOTE: if the DB transaction fails, the message will not be sent
         await _context.Auctions.AddAsync(auction);
-        var result = await _context.SaveChangesAsync() > 0;
-
         var newAuction = _mapper.Map<AuctionDto>(auction);
         await _publishEndpoint.Publish(_mapper.Map<AuctionCreated>(newAuction));
+        var result = await _context.SaveChangesAsync() > 0;
 
         if (!result) return BadRequest("Could not save changes to the DB");
 
