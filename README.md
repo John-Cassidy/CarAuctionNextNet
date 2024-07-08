@@ -287,3 +287,12 @@ N
 
 # add IdentityService project to sln
 ```
+
+## PostgreSQL Migrations
+
+Run commands from IdentityService folder
+
+```powershell
+dotnet ef migrations add InitialCreate -o Data/Migrations
+
+```
