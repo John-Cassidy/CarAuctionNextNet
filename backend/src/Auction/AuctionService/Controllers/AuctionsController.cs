@@ -80,10 +80,8 @@ public class AuctionsController : ControllerBase
         var auction = await _context.Auctions
         .Include(x => x.Item)
         .FirstOrDefaultAsync(x => x.Id == id);
-        if (auction == null)
-        {
-            return NotFound();
-        }
+        if (auction == null) return NotFound();
+
         // TODO: Check Seller == Username
 
         auction.Item.Make = updateAuctionDto.Make ?? auction.Item.Make;
@@ -91,6 +89,8 @@ public class AuctionsController : ControllerBase
         auction.Item.Color = updateAuctionDto.Color ?? auction.Item.Color;
         auction.Item.Mileage = updateAuctionDto.Mileage ?? auction.Item.Mileage;
         auction.Item.Year = updateAuctionDto.Year ?? auction.Item.Year;
+
+        await _publishEndpoint.Publish(_mapper.Map<AuctionUpdated>(auction));
 
         var result = await _context.SaveChangesAsync() > 0;
         if (!result) return BadRequest("Could not save changes to the DB");
@@ -109,6 +109,9 @@ public class AuctionsController : ControllerBase
         // TODO: Check Seller == Username
 
         _context.Auctions.Remove(auction);
+
+        await _publishEndpoint.Publish<AuctionDeleted>(new { Id = auction.Id.ToString() });
+
         var result = await _context.SaveChangesAsync() > 0;
         if (!result) return BadRequest("Could not save changes to the DB");
         return Ok();
