@@ -216,3 +216,74 @@ dotnet ef migrations add Outbox -o Data/Migrations
 # If no migrations are pending, this command has no effect.
 dotnet ef database update
 ```
+
+## IdentityServer using Duende.IdentityServer
+
+Overview:
+
+- Create IdentityServer project
+- Customize IdentityServer for our needs
+- Adding authentication to aour API endpoints
+- Implements OpenID Connect (OIDC) and OAuth2 as Single Sign (SSO) On Solution using OAuth2 Flow
+
+Infrastructure:
+
+- Duende IdentityServer with ASP.NET Core Identity
+- PostgresSql DB Server
+
+Nuget Packages: (added to the default template)
+
+- Npgsql.EntityFrameworkCore.PostgreSQL
+- Polly
+
+### Install/Update Project Templates
+
+Duende IdentityServer v7 for .NET 8
+
+Duende Software company offers IdentityServer dotnet project templates as a flexible and standards-compliant OpenID Connect and OAuth 2.x framework for ASP.NET Core.
+
+[Community Edition: A free license that is feature equivalent to our Enterprise Edition](https://duendesoftware.com/products/communityedition)
+
+[IdentityServer v7 Documentation](https://docs.duendesoftware.com/identityserver/v7/)
+
+[GitHub Repo](https://github.com/DuendeSoftware/IdentityServer)
+
+[Templates](https://github.com/DuendeSoftware/IdentityServer.Templates)
+
+```powershell
+> dotnet new install Duende.IdentityServer.Templates
+
+The following template packages will be installed:
+   Duende.IdentityServer.Templates
+
+Duende.IdentityServer.Templates (version 6.3.1) is already installed, it will be replaced with latest version.
+Duende.IdentityServer.Templates::6.3.1 was successfully uninstalled.
+Success: Duende.IdentityServer.Templates::7.0.4 installed the following templates:
+Template Name                                               Short Name     Language  Tags
+----------------------------------------------------------  -------------  --------  ------------------
+Duende BFF Host using a Remote API                          bff-remoteapi  [C#]      Web/IdentityServer
+Duende BFF using a Local API                                bff-localapi   [C#]      Web/IdentityServer
+Duende IdentityServer Empty                                 isempty        [C#]      Web/IdentityServer
+Duende IdentityServer Quickstart UI (UI assets only)        isui           [C#]      Web/IdentityServer
+Duende IdentityServer with ASP.NET Core Identity            isaspid        [C#]      Web/IdentityServer
+Duende IdentityServer with Entity Framework Stores          isef           [C#]      Web/IdentityServer
+Duende IdentityServer with In-Memory Stores and Test Users  isinmem        [C#]      Web/IdentityServer
+```
+
+### Project Creation
+
+run following command from `Infrastructure/` folder:
+
+```powershell
+dotnet new isaspid -o IdentityService --dry-run
+
+The template "Duende IdentityServer with ASP.NET Core Identity" was created successfully.
+
+Processing post-creation actions...
+Template is configured to run the following action:
+Actual command: dotnet run /seed
+Do you want to run this action [Y(yes)|N(no)]?
+N
+
+# add IdentityService project to sln
+```

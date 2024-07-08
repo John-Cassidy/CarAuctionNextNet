@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SearchService", "backend\sr
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{06F45E5A-6DC6-4A88-9614-7DFD90D72FF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contracts", "backend\src\Infrastructure\Contracts\Contracts.csproj", "{22920C09-6732-43DB-AAB3-CD9A6916130A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contracts", "backend\src\Infrastructure\Contracts\Contracts.csproj", "{22920C09-6732-43DB-AAB3-CD9A6916130A}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityService", "backend\src\Infrastructure\IdentityService\IdentityService.csproj", "{3787DB76-061A-4922-B7F7-6C9D40433750}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{22920C09-6732-43DB-AAB3-CD9A6916130A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{22920C09-6732-43DB-AAB3-CD9A6916130A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{22920C09-6732-43DB-AAB3-CD9A6916130A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3787DB76-061A-4922-B7F7-6C9D40433750}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3787DB76-061A-4922-B7F7-6C9D40433750}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3787DB76-061A-4922-B7F7-6C9D40433750}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3787DB76-061A-4922-B7F7-6C9D40433750}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -46,6 +52,7 @@ Global
 		{1E7F93C7-241C-45B1-A03E-57A3688D9B5F} = {2B4FDEE6-934D-4DEF-B6A2-E79EA430F645}
 		{06F45E5A-6DC6-4A88-9614-7DFD90D72FF4} = {C3D10665-FD4A-41D3-AD20-12B417F8DA15}
 		{22920C09-6732-43DB-AAB3-CD9A6916130A} = {06F45E5A-6DC6-4A88-9614-7DFD90D72FF4}
+		{3787DB76-061A-4922-B7F7-6C9D40433750} = {06F45E5A-6DC6-4A88-9614-7DFD90D72FF4}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {19A41971-28E5-4FFA-9F4C-548A256E34D1}
