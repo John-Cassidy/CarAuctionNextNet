@@ -288,7 +288,7 @@ N
 # add IdentityService project to sln
 ```
 
-## PostgreSQL
+### PostgreSQL
 
 Use the PostreSQL running in container used by AuctionService.
 
@@ -297,5 +297,8 @@ Run commands below from IdentityService folder
 ```powershell
 # Create Migrations
 dotnet ef migrations add InitialCreate -o Data/Migrations
-
 ```
+
+### Register New Users
+
+Create razor page to Register new users!
