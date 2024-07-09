@@ -219,6 +219,18 @@ dotnet ef database update
 
 ## IdentityServer using Duende.IdentityServer
 
+Duende IdentityServer v7 for .NET 8
+
+Duende Software company offers IdentityServer dotnet project templates as a flexible and standards-compliant OpenID Connect and OAuth 2.x framework for ASP.NET Core.
+
+[Community Edition: A free license that is feature equivalent to our Enterprise Edition](https://duendesoftware.com/products/communityedition)
+
+[IdentityServer v7 Documentation](https://docs.duendesoftware.com/identityserver/v7/)
+
+[GitHub Repo](https://github.com/DuendeSoftware/IdentityServer)
+
+[Templates](https://github.com/DuendeSoftware/IdentityServer.Templates)
+
 Overview:
 
 - Create IdentityServer project
@@ -237,18 +249,6 @@ Nuget Packages: (added to the default template)
 - Polly
 
 ### Install/Update Project Templates
-
-Duende IdentityServer v7 for .NET 8
-
-Duende Software company offers IdentityServer dotnet project templates as a flexible and standards-compliant OpenID Connect and OAuth 2.x framework for ASP.NET Core.
-
-[Community Edition: A free license that is feature equivalent to our Enterprise Edition](https://duendesoftware.com/products/communityedition)
-
-[IdentityServer v7 Documentation](https://docs.duendesoftware.com/identityserver/v7/)
-
-[GitHub Repo](https://github.com/DuendeSoftware/IdentityServer)
-
-[Templates](https://github.com/DuendeSoftware/IdentityServer.Templates)
 
 ```powershell
 > dotnet new install Duende.IdentityServer.Templates
@@ -302,3 +302,9 @@ dotnet ef migrations add InitialCreate -o Data/Migrations
 ### Register New Users
 
 Create razor page to Register new users!
+
+### Issue Tokens based on User Passwords
+
+Add client credentials to allow clients to request a token. This is not a best practice but will allow Postman to generate a token for development testing purposes.
+
+[Documentation](https://docs.duendesoftware.com/identityserver/v7/tokens/password_grant/)
