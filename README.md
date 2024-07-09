@@ -308,3 +308,5 @@ Create razor page to Register new users!
 Add client credentials to allow clients to request a token. This is not a best practice but will allow Postman to generate a token for development testing purposes.
 
 [Documentation](https://docs.duendesoftware.com/identityserver/v7/tokens/password_grant/)
+
+### Add Custom Profile Service to IdentityService
