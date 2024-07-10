@@ -310,3 +310,23 @@ Add client credentials to allow clients to request a token. This is not a best p
 [Documentation](https://docs.duendesoftware.com/identityserver/v7/tokens/password_grant/)
 
 ### Add Custom Profile Service to IdentityService
+
+## API Gateway Service
+
+Yarp: Yet Another Reverse Proxy
+
+[Yarp Documentation](https://microsoft.github.io/reverse-proxy/)
+
+[Yarp Getting Started](https://microsoft.github.io/reverse-proxy/articles/getting-started.html)
+
+Used for:
+
+- Reverse Proxy
+- Security
+- URL Rewriting
+
+### Configuration Files
+
+[Configuration Files Documentation](https://microsoft.github.io/reverse-proxy/articles/config-files.html)
+
+The reverse proxy can load configuration for routes and clusters from files using the IConfiguration abstraction from Microsoft.Extensions. The project will use appsettings.JSON. The configuration will also be updated without restarting the proxy if the source file changes.
