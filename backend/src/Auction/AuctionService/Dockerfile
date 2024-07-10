@@ -9,6 +9,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 COPY ["backend/src/Auction/AuctionService/AuctionService.csproj", "backend/src/Auction/AuctionService/"]
+COPY ["backend/src/Infrastructure/Contracts/Contracts.csproj", "backend/src/Infrastructure/Contracts/"]
 RUN dotnet restore "./backend/src/Auction/AuctionService/AuctionService.csproj"
 COPY . .
 WORKDIR "/src/backend/src/Auction/AuctionService"
