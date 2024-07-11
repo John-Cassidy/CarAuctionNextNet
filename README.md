@@ -83,6 +83,10 @@ docker-compose -f docker-compose.yml up
 docker-compose -f docker-compose.yml up -d
 # NOTE: STOP RUNNING CONTAINERS AND REMOVE CONTAINERS
 docker-compose -f docker-compose.yml down
+
+# CLEAN UP Docker Cache
+docker system prune -a
+docker volume prune
 ```
 
 ## SearchService - MongoDB
