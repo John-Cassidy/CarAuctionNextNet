@@ -334,3 +334,25 @@ Used for:
 [Configuration Files Documentation](https://microsoft.github.io/reverse-proxy/articles/config-files.html)
 
 The reverse proxy can load configuration for routes and clusters from files using the IConfiguration abstraction from Microsoft.Extensions. The project will use appsettings.JSON. The configuration will also be updated without restarting the proxy if the source file changes.
+
+## Testing
+
+```powershell
+# Create Unit test project
+dotnet new xunit -o backend/tests/AuctionService.UnitTests --dry-run
+```
+
+```csharp
+public class AuctionEntityTests
+{
+    [Fact]
+    public void Method_Scenario_ExpectedResult()
+    {
+        // arrange
+
+        // act
+
+        // assert
+    }
+}
+```
