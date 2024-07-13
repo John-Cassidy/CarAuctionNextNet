@@ -18,5 +18,18 @@ public class MappingProfiles : Profile
         CreateMap<AuctionDto, AuctionCreated>();
         CreateMap<Auction, AuctionUpdated>().IncludeMembers(x => x.Item);
         CreateMap<Item, AuctionUpdated>();
+        CreateMap<AuctionDto, Auction>()
+            .ForMember(d => d.Status, o => o.MapFrom<StatusValueResolver>())
+            .ForMember(d => d.Item,
+            o => o.MapFrom(s => s));
+        CreateMap<AuctionDto, Item>()
+            .ForMember(dest => dest.Make, opt => opt.MapFrom(src => src.Make))
+            .ForMember(dest => dest.Model, opt => opt.MapFrom(src => src.Model))
+            .ForMember(dest => dest.Year, opt => opt.MapFrom(src => src.Year))
+            .ForMember(dest => dest.Color, opt => opt.MapFrom(src => src.Color))
+            .ForMember(dest => dest.Mileage, opt => opt.MapFrom(src => src.Mileage))
+            .ForMember(dest => dest.ImageUrl, opt => opt.MapFrom(src => src.ImageUrl))
+            .ForMember(dest => dest.AuctionId, opt => opt.Ignore()) // Assuming AuctionId is not available in AuctionDto
+            .ForMember(dest => dest.Auction, opt => opt.Ignore()); // Assuming direct mapping to Auction is not needed here            
     }
 }
