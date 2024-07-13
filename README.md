@@ -340,6 +340,9 @@ The reverse proxy can load configuration for routes and clusters from files usin
 ```powershell
 # Create Unit test project
 dotnet new xunit -o backend/tests/AuctionService.UnitTests --dry-run
+
+# Create Integration test project
+dotnet new xunit -o backend/tests/AuctionService.IntegrationTests --dry-run
 ```
 
 ```csharp
@@ -356,3 +359,20 @@ public class AuctionEntityTests
     }
 }
 ```
+
+Integration Testing Nuget Packages:
+
+- Microsoft.AspNetCore.Mvc.Testing
+
+  - Support for writing functional tests for MVC applications.
+  - [Documentation](https://learn.microsoft.com/en-us/aspnet/core/test/integration-tests?view=aspnetcore-8.0)
+
+- Testcontainers.PostgreSql
+
+  - Testcontainers for .NET is a library to support tests with throwaway instances of Docker containers for all compatible .NET Standard versions.
+  - [Testcontainers Documentation](https://dotnet.testcontainers.org/)
+
+- WebMotions.Fake.Authentication.JwtBearer
+
+  - This code allows to fake a Jwt Bearer and build integration tests for an ASP.Net Core application. Using this, we can fake any authentication we need, without the need to really authenticate a user.
+  - [Webmotion.Fake.Authentication.JwtBearer Documentation](https://github.com/webmotions/fake-authentication-jwtbearer)
