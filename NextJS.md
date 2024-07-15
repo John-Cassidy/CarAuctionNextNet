@@ -91,4 +91,7 @@ React Icons. Install npm package:
 
 ```powershell
 npm i react-icons
+
+# install tailwindcss/aspect-ratio when using fill property in next/image <Image /> component
+npm i -D @tailwindcss/aspect-ratio
 ```
