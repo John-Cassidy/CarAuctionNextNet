@@ -80,3 +80,15 @@ Key Differences:
 - ImageResponse Import Rename: The next/server import for ImageResponse is renamed to next/og2.
 - Font Package Removal: The @next/font package is fully removed in favor of the built-in next/font2.
 - WASM Target Removal: The WASM target for next-swc is removed2.
+
+## Details
+
+Flexbox styles. Checkout the app where you can test your styles:
+
+[Flexbox Froggy](https://flexboxfroggy.com/)
+
+React Icons. Install npm package:
+
+```powershell
+npm i react-icons
+```

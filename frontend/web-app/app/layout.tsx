@@ -1,6 +1,7 @@
 import './globals.css';
 
 import type { Metadata } from 'next';
+import Navbar from './nav/NavBar';
 
 export const metadata: Metadata = {
   title: 'Car Auction App',
@@ -14,7 +15,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body>{children}</body>
+      <body>
+        <Navbar />
+        <main className='container mx-auto px-5 pt-10'>{children}</main>
+      </body>
     </html>
   );
 }
