@@ -376,3 +376,5 @@ Integration Testing Nuget Packages:
 
   - This code allows to fake a Jwt Bearer and build integration tests for an ASP.Net Core application. Using this, we can fake any authentication we need, without the need to really authenticate a user.
   - [Webmotion.Fake.Authentication.JwtBearer Documentation](https://github.com/webmotions/fake-authentication-jwtbearer)
+
+## NextJS
