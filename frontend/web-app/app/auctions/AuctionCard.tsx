@@ -1,10 +1,11 @@
+import { Auction } from '@/types';
 import CardImage from './CardImage';
 import CountdownTimer from './CountdownTimer';
 import Image from 'next/image';
 import React from 'react';
 
 type Props = {
-  auction: any;
+  auction: Auction;
 };
 
 export default function AuctionCard({ auction }: Props) {
