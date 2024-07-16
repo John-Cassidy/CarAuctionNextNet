@@ -1,6 +1,7 @@
 # NextJS
 
 [https://nextjs.org/](https://nextjs.org/)
+[NextJS 14 blog Thursday, October 26th 2023](https://nextjs.org/blog/next-14)
 
 ## Overview
 
