@@ -1,24 +1,38 @@
+'use client';
+
 import { Auction, PagedResult } from '@/types';
+import React, { useEffect, useState } from 'react';
 
+import AppPagination from '../components/AppPagination';
 import AuctionCard from './AuctionCard';
-import React from 'react';
+import { getData } from '../actions/auctionActions';
 
-async function getData(): Promise<PagedResult<Auction>> {
-  const response = await fetch('http://localhost:6001/search/?pageSize=10');
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return await response.json();
-}
+export default function Listings() {
+  const [auctions, setAuctions] = useState<Auction[]>([]);
+  const [pageCount, setPageCount] = useState(0);
+  const [pageNumber, setPageNumber] = useState(1);
 
-export default async function Listings() {
-  const data = await getData();
+  useEffect(() => {
+    getData(pageNumber).then((data: PagedResult<Auction>) => {
+      setAuctions(data.results);
+      setPageCount(data.pageCount);
+    });
+  }, [pageNumber]);
+
   return (
-    <div className='grid grid-cols-4 gap-6'>
-      {data &&
-        data.results.map((auction: Auction) => (
+    <>
+      <div className='grid grid-cols-4 gap-6'>
+        {auctions.map((auction: Auction) => (
           <AuctionCard key={auction.id} auction={auction} />
         ))}
-    </div>
+      </div>
+      <div className='flex justify-center mt-4'>
+        <AppPagination
+          pageChanged={setPageNumber}
+          currentPage={pageNumber}
+          pageCount={pageCount}
+        />
+      </div>
+    </>
   );
 }

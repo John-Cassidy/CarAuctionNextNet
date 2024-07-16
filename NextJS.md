@@ -103,3 +103,11 @@ npm i -D @tailwindcss/aspect-ratio
 ```powershell
 npm i react-countdown
 ```
+
+### Add Pagination to Auction List
+
+[React Pagination with Flowbite](https://flowbite-react.com/docs/components/pagination)
+
+```powershell
+npm i flowbite-react
+```
