@@ -1,3 +1,4 @@
+import CountdownTimer from './CountdownTimer';
 import Image from 'next/image';
 import React from 'react';
 
@@ -26,6 +27,7 @@ export default function AuctionCard({ auction }: Props) {
         </h3>
         <p className='font-semibold text-sm'>{auction.year}</p>
       </div>
+      <CountdownTimer auctionEnd={auction.auctionEnd} />
     </a>
   );
 }

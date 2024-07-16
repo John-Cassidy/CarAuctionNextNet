@@ -95,3 +95,11 @@ npm i react-icons
 # install tailwindcss/aspect-ratio when using fill property in next/image <Image /> component
 npm i -D @tailwindcss/aspect-ratio
 ```
+
+### Add Countdown Timer to Auction Card
+
+[Getting Started w/react-countdown](https://www.npmjs.com/package/react-countdown)
+
+```powershell
+npm i react-countdown
+```
