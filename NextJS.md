@@ -80,3 +80,34 @@ Key Differences:
 - ImageResponse Import Rename: The next/server import for ImageResponse is renamed to next/og2.
 - Font Package Removal: The @next/font package is fully removed in favor of the built-in next/font2.
 - WASM Target Removal: The WASM target for next-swc is removed2.
+
+## Details
+
+Flexbox styles. Checkout the app where you can test your styles:
+
+[Flexbox Froggy](https://flexboxfroggy.com/)
+
+React Icons. Install npm package:
+
+```powershell
+npm i react-icons
+
+# install tailwindcss/aspect-ratio when using fill property in next/image <Image /> component
+npm i -D @tailwindcss/aspect-ratio
+```
+
+### Add Countdown Timer to Auction Card
+
+[Getting Started w/react-countdown](https://www.npmjs.com/package/react-countdown)
+
+```powershell
+npm i react-countdown
+```
+
+### Add Pagination to Auction List
+
+[React Pagination with Flowbite](https://flowbite-react.com/docs/components/pagination)
+
+```powershell
+npm i flowbite-react
+```
