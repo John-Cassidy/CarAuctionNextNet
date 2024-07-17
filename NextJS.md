@@ -112,3 +112,15 @@ npm i react-countdown
 ```powershell
 npm i flowbite-react
 ```
+
+### Zustand state management
+
+[Zustand Documentation](https://docs.pmnd.rs/zustand/getting-started/introduction)
+
+A small, fast, and scalable bearbones state management solution. Zustand has a comfy API based on hooks. It isn't boilerplatey or opinionated, but has enough convention to be explicit and flux-like.
+
+```powershell
+npm i zustand
+# Package that will Parse a query string into an object. 
+npm i query-string
+```
