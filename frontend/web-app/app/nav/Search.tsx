@@ -7,19 +7,21 @@ import { useParamsStore } from '@/hooks/useParamsStore';
 
 export default function Search() {
   const setParams = useParamsStore((state) => state.setParams);
-  const [value, setValue] = useState('');
+  const setSearchValue = useParamsStore((state) => state.setSearchValue);
+  const searchValue = useParamsStore((state) => state.searchValue);
 
   function onChange(event: any) {
-    setValue(event.target.value);
+    setSearchValue(event.target.value);
   }
 
   function search() {
-    setParams({ searchTerm: value });
+    setParams({ searchTerm: searchValue });
   }
 
   return (
     <div className='flex w-[50%] items-center border-2 rounded-full py-2 shadow-sm'>
       <input
+        value={searchValue}
         onKeyDown={(e: any) => {
           if (e.key === 'Enter') search();
         }}
