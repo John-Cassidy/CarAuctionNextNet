@@ -84,6 +84,8 @@ Key Differences:
 
 ## Details
 
+### Add Flexbox Froggy
+
 Flexbox styles. Checkout the app where you can test your styles:
 
 [Flexbox Froggy](https://flexboxfroggy.com/)
@@ -165,3 +167,9 @@ Migration:
 #### Details of NextAuth v4
 
 [Getting Started](https://next-auth.js.org/getting-started/example)
+
+```powershell
+npm install next-auth
+```
+
+[Follow directions in this Guide to setup Authentication](https://next-auth.js.org/configuration/initialization#route-handlers-app)
