@@ -1,3 +1,4 @@
+import LoginButton from './LoginButton';
 import Logo from './Logo';
 import React from 'react';
 import Search from './Search';
@@ -10,7 +11,7 @@ export default function Navbar() {
     >
       <Logo />
       <Search />
-      <div>Login</div>
+      <LoginButton />
     </header>
   );
 }
