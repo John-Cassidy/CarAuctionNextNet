@@ -84,6 +84,8 @@ Key Differences:
 
 ## Details
 
+### Add Flexbox Froggy
+
 Flexbox styles. Checkout the app where you can test your styles:
 
 [Flexbox Froggy](https://flexboxfroggy.com/)
@@ -121,6 +123,71 @@ A small, fast, and scalable bearbones state management solution. Zustand has a c
 
 ```powershell
 npm i zustand
-# Package that will Parse a query string into an object. 
+# Package that will Parse a query string into an object.
 npm i query-string
 ```
+
+### Authentication with NextAuth.js
+
+[Documentation - NextAuth (next-auth@4.x.y)](https://next-auth.js.org/)
+
+[Documentation - Auth.js (next-auth@5.0.0-beta)](https://authjs.dev/getting-started)
+
+#### Overview of NextAuth and Auth.js
+
+NextAuth.js is an open-source authentication library for Next.js applications. It provides a flexible and secure way to handle authentication with a wide range of OAuth providers, as well as support for passwordless sign-in. It can be used with or without a database and supports popular databases like MySQL, MongoDB, PostgreSQL, and MariaDB1.
+
+Auth.js is essentially the evolution of NextAuth.js. It was born out of NextAuth but has been developed to be framework-agnostic, meaning it can be used with various frameworks, not just Next.js2. Auth.js builds on the core principles of NextAuth.js but aims to provide a more universal authentication solution.
+
+#### Comparison: NextAuth vs. Auth.js
+
+Framework Dependency:
+
+- NextAuth.js: Specifically designed for Next.js applications.
+- Auth.js: Framework-agnostic, can be used with various frameworks.
+
+Configuration:
+
+- NextAuth.js: Configuration is typically done in a file within the pages/api/auth directory.
+- Auth.js: Configuration is more flexible and can be placed in a root-level file, making it easier to use across different parts of the application3.
+
+OAuth Support:
+
+- NextAuth.js: Supports a wide range of OAuth providers.
+- Auth.js: Continues to support OAuth providers but with stricter compliance to OAuth/OIDC specifications3.
+
+Database Support:
+
+- Both support popular databases and can be used with or without a database.
+
+Migration:
+
+- NextAuth.js: Users of NextAuth.js can migrate to Auth.js with some changes to configuration and imports3.
+
+#### Details of NextAuth v4
+
+[Getting Started](https://next-auth.js.org/getting-started/example)
+
+```powershell
+npm install next-auth
+```
+
+[Follow directions in this Guide to setup Authentication](https://next-auth.js.org/configuration/initialization#route-handlers-app)
+
+### React Dropdown w/Flowbite React
+
+[React Dropdown - Flowbite (Documentation)](https://flowbite-react.com/docs/components/dropdown)
+
+### Securing NextJS pages and API routes
+
+[Documentation](https://next-auth.js.org/tutorials/securing-pages-and-api-routes)
+
+[Next.js Middleware](https://next-auth.js.org/tutorials/securing-pages-and-api-routes#nextjs-middleware)
+
+With NextAuth.js 4.2.0 and Next.js 12, you can now protect your pages via the middleware pattern more easily.
+
+### Testing NextJS pages and API routes
+
+Create app/session/AuthTest.tsx
+
+[Documentation on how to use and test `getToken`](https://next-auth.js.org/tutorials/securing-pages-and-api-routes#using-gettoken)
