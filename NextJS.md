@@ -173,3 +173,7 @@ npm install next-auth
 ```
 
 [Follow directions in this Guide to setup Authentication](https://next-auth.js.org/configuration/initialization#route-handlers-app)
+
+### React Dropdown w/Flowbite React
+
+[React Dropdown - Flowbite (Documentation)](https://flowbite-react.com/docs/components/dropdown)
