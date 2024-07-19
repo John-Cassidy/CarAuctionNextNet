@@ -177,3 +177,11 @@ npm install next-auth
 ### React Dropdown w/Flowbite React
 
 [React Dropdown - Flowbite (Documentation)](https://flowbite-react.com/docs/components/dropdown)
+
+### Securing NextJS pages and API routes
+
+[Documentation](https://next-auth.js.org/tutorials/securing-pages-and-api-routes)
+
+[Next.js Middleware](https://next-auth.js.org/tutorials/securing-pages-and-api-routes#nextjs-middleware)
+
+With NextAuth.js 4.2.0 and Next.js 12, you can now protect your pages via the middleware pattern more easily.
