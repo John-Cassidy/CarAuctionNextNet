@@ -185,3 +185,9 @@ npm install next-auth
 [Next.js Middleware](https://next-auth.js.org/tutorials/securing-pages-and-api-routes#nextjs-middleware)
 
 With NextAuth.js 4.2.0 and Next.js 12, you can now protect your pages via the middleware pattern more easily.
+
+### Testing NextJS pages and API routes
+
+Create app/session/AuthTest.tsx
+
+[Documentation on how to use and test `getToken`](https://next-auth.js.org/tutorials/securing-pages-and-api-routes#using-gettoken)
