@@ -1,3 +1,4 @@
+import AuctionForm from '../AuctionForm';
 import Heading from '@/app/components/Heading';
 import React from 'react';
 
@@ -8,6 +9,7 @@ export default function Create() {
         title='Sell your car!'
         subtitle='Please enter the details of your car'
       />
+      <AuctionForm />
     </div>
   );
 }

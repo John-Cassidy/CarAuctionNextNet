@@ -191,3 +191,18 @@ With NextAuth.js 4.2.0 and Next.js 12, you can now protect your pages via the mi
 Create app/session/AuthTest.tsx
 
 [Documentation on how to use and test `getToken`](https://next-auth.js.org/tutorials/securing-pages-and-api-routes#using-gettoken)
+
+### Auction Form using React hook form and react date picker
+
+[React Hook Form](https://react-hook-form.com/)
+
+Add AuctionForm component for creating auctions
+
+The AuctionForm component to the create page in the web app. The AuctionForm component includes form fields for entering the details of a car auction, such as the make and model. It also includes validation logic using the react-hook-form library. This enhancement improves the functionality and user experience of the create page by providing a user-friendly form for creating auctions.
+
+```powershell
+# React hook form and react date picker
+npm i react-hook-form react-datepicker
+# Typescript Types for react date picker
+npm i -D @types/react-datepicker
+```
