@@ -1,10 +1,10 @@
 'use client';
 
-import { Button, TextInput } from 'flowbite-react';
 import { FieldValues, useForm } from 'react-hook-form';
+import React, { useEffect } from 'react';
 
+import { Button } from 'flowbite-react';
 import Input from '../components/Input';
-import React from 'react';
 
 export default function AuctionForm() {
   const {
@@ -13,7 +13,14 @@ export default function AuctionForm() {
     handleSubmit,
     setFocus,
     formState: { isSubmitting, isValid, isDirty, errors },
-  } = useForm();
+  } = useForm({
+    mode: 'onTouched',
+    reValidateMode: 'onChange',
+  });
+
+  useEffect(() => {
+    setFocus('make');
+  }, [setFocus]);
 
   function onSubmit(data: FieldValues) {
     console.log(data);
@@ -71,6 +78,13 @@ export default function AuctionForm() {
           control={control}
           type='number'
           rules={{ required: 'Reserve price is required' }}
+        />
+        <Input
+          label='Auction end date/time'
+          name='auctionEnd'
+          control={control}
+          type='date'
+          rules={{ required: 'Auction end date is required' }}
         />
       </div>
 
