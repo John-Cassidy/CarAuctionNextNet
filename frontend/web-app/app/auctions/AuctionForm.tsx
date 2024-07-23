@@ -6,8 +6,11 @@ import React, { useEffect } from 'react';
 import { Button } from 'flowbite-react';
 import DateInput from '../components/DateInput';
 import Input from '../components/Input';
+import { createAuction } from '../actions/auctionActions';
+import { useRouter } from 'next/navigation';
 
 export default function AuctionForm() {
+  const router = useRouter();
   const {
     control,
     register,
@@ -23,8 +26,16 @@ export default function AuctionForm() {
     setFocus('make');
   }, [setFocus]);
 
-  function onSubmit(data: FieldValues) {
-    console.log(data);
+  async function onSubmit(data: FieldValues) {
+    try {
+      const res = await createAuction(data);
+      if (res.error) {
+        throw new Error(res.error);
+      }
+      router.push(`/auctions/details/${res.id}`);
+    } catch (error) {
+      console.error(error);
+    }
   }
 
   return (
