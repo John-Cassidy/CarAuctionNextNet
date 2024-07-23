@@ -2,14 +2,16 @@
 
 import { Auction, PagedResult } from '@/types';
 
+import { fetchWrapper } from '../lib/fetchWrapper';
 import { getTokenWorkaround } from './authActions';
 
 export async function getData(query: string): Promise<PagedResult<Auction>> {
-  const response = await fetch(`http://localhost:6001/search/${query}`);
-  if (!response.ok) {
-    throw new Error('Network response was not ok');
-  }
-  return await response.json();
+  return await fetchWrapper.get(`search/${query}`);
+  // const response = await fetch(`http://localhost:6001/search/${query}`);
+  // if (!response.ok) {
+  //   throw new Error('Network response was not ok');
+  // }
+  // return await response.json();
 }
 
 export async function updateAuctionTest(): Promise<
