@@ -206,3 +206,9 @@ npm i react-hook-form react-datepicker
 # Typescript Types for react date picker
 npm i -D @types/react-datepicker
 ```
+
+### React Hot Toast
+
+```powershell
+npm i react-hot-toast
+```

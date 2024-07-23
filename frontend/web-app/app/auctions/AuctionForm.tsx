@@ -7,6 +7,7 @@ import { Button } from 'flowbite-react';
 import DateInput from '../components/DateInput';
 import Input from '../components/Input';
 import { createAuction } from '../actions/auctionActions';
+import toast from 'react-hot-toast';
 import { useRouter } from 'next/navigation';
 
 export default function AuctionForm() {
@@ -30,11 +31,11 @@ export default function AuctionForm() {
     try {
       const res = await createAuction(data);
       if (res.error) {
-        throw new Error(res.error);
+        throw res.error;
       }
       router.push(`/auctions/details/${res.id}`);
-    } catch (error) {
-      console.error(error);
+    } catch (error: any) {
+      toast.error(error.status + ' ' + error.message);
     }
   }
 
