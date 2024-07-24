@@ -378,3 +378,37 @@ Integration Testing Nuget Packages:
   - [Webmotion.Fake.Authentication.JwtBearer Documentation](https://github.com/webmotions/fake-authentication-jwtbearer)
 
 ## NextJS
+
+## BidService
+
+Create a .Net Web API project that will:
+
+Controller endpoints:
+
+- Creates a new bid for an auction using the auctionId and the amount of
+  the bid. Returns Bid
+- Returns a list of bids for an Auction
+
+Events emitted:
+
+- BidService.BidPlaced - When a bid has been placed in the BidService
+- BidService.AuctionFinished - When an auction has reached the AuctionEnd date
+
+Events consumed:
+
+- AuctionService.AuctionCreated - When an auction has been created in the
+  AuctionService
+
+```powershell
+dotnet new webapi -o backend/src/BiddingService --dry-run
+
+File actions would have been taken:
+  Create: backend\src\BiddingService\BiddingService.csproj
+  Create: backend\src\BiddingService\BiddingService.http
+  Create: backend\src\BiddingService\Program.cs
+  Create: backend\src\BiddingService\Properties\launchSettings.json
+  Create: backend\src\BiddingService\appsettings.Development.json
+  Create: backend\src\BiddingService\appsettings.json
+
+dotnet sln add backend/src/BiddingService
+```
