@@ -1,4 +1,6 @@
+using AutoMapper;
 using BiddingService.Consumers;
+using BiddingService.Mappers;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MongoDB.Driver;
@@ -11,6 +13,15 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Add AutoMapper
+var configuration = new MapperConfiguration(cfg =>
+{
+    cfg.AddProfile<MappingProfiles>();
+});
+// use DI (http://docs.automapper.org/en/latest/Dependency-injection.html) or create the mapper yourself
+builder.Services.AddSingleton(configuration.CreateMapper());
+
 
 // Add MassTransit
 builder.Services.AddMassTransit(x =>
