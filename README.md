@@ -419,8 +419,22 @@ Used by BidService to check AuctionService for any missing Auctions when a Bid c
 
 [Blog on How to Implement gRPC Client and Server in .NET 8](https://medium.com/@gabrieletronchin/how-to-implement-grpc-client-and-server-in-net-8-2b722b50c3b0)
 
-[Github Repository Implementation based on Blog](https://github.com/GabrieleTronchin/GRPC.Sample)
+[Blog Github Repository](https://github.com/GabrieleTronchin/GRPC.Sample)
+
+[Microsoft Tutorial: Create a gRPC client and server in ASP.NET Core](https://learn.microsoft.com/en-us/aspnet/core/tutorials/grpc/grpc-start?view=aspnetcore-8.0&tabs=visual-studio-code)
 
 ![Grpc Server - Client](./.assets/images/001_grpc_server_client.png)
 
 [VS Code Extension: vscode-proto3](https://github.com/zxh0/vscode-proto3)
+
+### Nuget Packages
+
+gRPC Server:
+
+- Grpc.AspNetCore v2.64.0 - An ASP.NET Core framework for hosting gRPC services. gRPC on ASP.NET Core integrates with standard ASP.NET Core features like logging, dependency injection (DI), authentication and authorization
+
+gRPC Client:
+
+- Grpc.Net.Client v2.64.0 - A gRPC client for .NET Core that builds upon the familiar HttpClient. The client uses new HTTP/2 functionality in .NET Core
+- Google.Protobuf v3.27.2, which contains protobuf message APIs for C#.
+- Grpc.Tools v2.65.0, which contain C# tooling support for protobuf files. The tooling package isn't required at runtime, so the dependency is marked with PrivateAssets="All"

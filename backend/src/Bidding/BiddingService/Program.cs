@@ -2,6 +2,7 @@ using AutoMapper;
 using BiddingService;
 using BiddingService.Consumers;
 using BiddingService.Mappers;
+using BiddingService.Services;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using MongoDB.Driver;
@@ -24,6 +25,7 @@ var configuration = new MapperConfiguration(cfg =>
 builder.Services.AddSingleton(configuration.CreateMapper());
 
 builder.Services.AddHostedService<CheckAuctionFinished>();
+builder.Services.AddScoped<GrpcAuctionClient>();
 
 // Add MassTransit
 builder.Services.AddMassTransit(x =>
