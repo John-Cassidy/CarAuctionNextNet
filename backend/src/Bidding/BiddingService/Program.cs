@@ -1,4 +1,5 @@
 using AutoMapper;
+using BiddingService;
 using BiddingService.Consumers;
 using BiddingService.Mappers;
 using MassTransit;
@@ -22,6 +23,7 @@ var configuration = new MapperConfiguration(cfg =>
 // use DI (http://docs.automapper.org/en/latest/Dependency-injection.html) or create the mapper yourself
 builder.Services.AddSingleton(configuration.CreateMapper());
 
+builder.Services.AddHostedService<CheckAuctionFinished>();
 
 // Add MassTransit
 builder.Services.AddMassTransit(x =>
