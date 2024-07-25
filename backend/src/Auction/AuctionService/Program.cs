@@ -2,6 +2,7 @@ using AuctionService.Consumers;
 using AuctionService.Data;
 using AuctionService.Mappers;
 using AuctionService.Repositories;
+using AuctionService.Services;
 using AutoMapper;
 using MassTransit;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -67,6 +68,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
     });
 
 builder.Services.AddScoped<IAuctionRepository, AuctionRepository>();
+builder.Services.AddGrpc();
 
 var app = builder.Build();
 
@@ -81,6 +83,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapGrpcService<GrpcAuctionService>();
 
 try
 {

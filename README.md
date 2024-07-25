@@ -412,3 +412,15 @@ File actions would have been taken:
 
 dotnet sln add backend/src/BiddingService
 ```
+
+## Grpc Service / Client
+
+Used by BidService to check AuctionService for any missing Auctions when a Bid comes in.
+
+[Blog on How to Implement gRPC Client and Server in .NET 8](https://medium.com/@gabrieletronchin/how-to-implement-grpc-client-and-server-in-net-8-2b722b50c3b0)
+
+[Github Repository Implementation based on Blog](https://github.com/GabrieleTronchin/GRPC.Sample)
+
+![Grpc Server - Client](./.assets/images/001_grpc_server_client.png)
+
+[VS Code Extension: vscode-proto3](https://github.com/zxh0/vscode-proto3)
