@@ -1,4 +1,5 @@
 using MassTransit;
+using NotificationService.Consumers;
 using NotificationService.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,6 +7,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Add MassTransit
 builder.Services.AddMassTransit(x =>
 {
+    x.AddConsumer<AuctionCreatedConsumer>();
+    x.AddConsumer<AuctionFinishedConsumer>();
+    x.AddConsumer<BidPlacedConsumer>();
 
     x.SetEndpointNameFormatter(new KebabCaseEndpointNameFormatter("nt", false));
 
