@@ -438,3 +438,24 @@ gRPC Client:
 - Grpc.Net.Client v2.64.0 - A gRPC client for .NET Core that builds upon the familiar HttpClient. The client uses new HTTP/2 functionality in .NET Core
 - Google.Protobuf v3.27.2, which contains protobuf message APIs for C#.
 - Grpc.Tools v2.65.0, which contain C# tooling support for protobuf files. The tooling package isn't required at runtime, so the dependency is marked with PrivateAssets="All"
+
+## SignalR Service
+
+C:\DEV\github.com\CarAuctionNextNet\backend\src\Notification
+
+```powershell
+dotnet new web -o backend/src/Notification/NotificationService --dry-run
+
+File actions would have been taken:
+  Create: backend\src\Notification\NotificationService\NotificationService.csproj
+  Create: backend\src\Notification\NotificationService\Program.cs
+  Create: backend\src\Notification\NotificationService\Properties\launchSettings.json
+  Create: backend\src\Notification\NotificationService\appsettings.Development.json
+  Create: backend\src\Notification\NotificationService\appsettings.json
+
+dotnet sln add backend/src/Notification/NotificationService  
+```
+
+Nuget packages:
+
+- MassTransit.RabbitMQ: [https://masstransit.io/](https://masstransit.io/)
