@@ -4,6 +4,7 @@ import {
 } from '@/app/actions/auctionActions';
 
 import BidItem from './BidItem';
+import BidList from './BidList';
 import CarImage from '../../CardImage';
 import CountdownTimer from '../../CountdownTimer';
 import DeleteButton from './DeleteButton';
@@ -16,7 +17,6 @@ import { getCurrentUser } from '@/app/actions/authActions';
 export default async function Details({ params }: { params: { id: string } }) {
   const data = await getDetailedViewData(params.id);
   const user = await getCurrentUser();
-  const bids = await getBidsForAuction(params.id);
   return (
     <div>
       <div className='flex justify-between'>
@@ -41,9 +41,7 @@ export default async function Details({ params }: { params: { id: string } }) {
         </div>
         <div className='border-2 rounded-lg p-2 bg-gray-100'>
           <Heading title='Bids' />
-          {bids.map((bid) => (
-            <BidItem key={bid.id} bid={bid} />
-          ))}
+          <BidList user={user} auction={data} />
         </div>
       </div>
       <div className='mt-3 grid grid-cols-1 rounded-lg'>
