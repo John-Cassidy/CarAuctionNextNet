@@ -214,3 +214,7 @@ npm i react-hot-toast
 ```
 
 ### Adding Bids / Notifications
+
+```powershell
+npm i date-fns
+```
