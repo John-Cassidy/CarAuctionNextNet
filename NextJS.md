@@ -212,3 +212,5 @@ npm i -D @types/react-datepicker
 ```powershell
 npm i react-hot-toast
 ```
+
+### Adding Bids / Notifications
