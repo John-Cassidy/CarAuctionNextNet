@@ -2,6 +2,7 @@ import './globals.css';
 
 import type { Metadata } from 'next';
 import Navbar from './nav/NavBar';
+import SignalRProvider from './providers/SignalRProvider';
 import ToasterProvider from './providers/ToasterProvider';
 
 export const metadata: Metadata = {
@@ -19,7 +20,9 @@ export default function RootLayout({
       <body>
         <ToasterProvider />
         <Navbar />
-        <main className='container mx-auto px-5 pt-10'>{children}</main>
+        <main className='container mx-auto px-5 pt-10'>
+          <SignalRProvider>{children}</SignalRProvider>
+        </main>
       </body>
     </html>
   );

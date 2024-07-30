@@ -218,3 +218,16 @@ npm i react-hot-toast
 ```powershell
 npm i date-fns
 ```
+
+### Adding SingalR
+
+[Integrating Next.js and SignalR to build real-time web apps](https://blog.logrocket.com/integrating-next-js-signalr/)
+
+[Next.js and SignalR: Effortless Socket Integration and Troubleshooting](https://hackernoon.com/nextjs-and-signalr-effortless-socket-integration-and-troubleshooting)
+
+[(GitHub) NEXTJS-MICROSOFT-SIGNALR-WEB-SOCKET](https://github.com/kaiquye/NEXTJS-MICROSOFT-SIGNALR-WEB-SOCKET)
+
+```powershell
+# https://www.npmjs.com/package/@microsoft/signalr
+npm i @microsoft/signalr --dry-run
+```
