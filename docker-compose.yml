@@ -129,6 +129,22 @@ services:
       - 7004:80
     depends_on:
       - rabbitmq
+  web-app:
+    image: jpcassidy/carauction-web-app:latest
+    container_name: web-app
+    build:
+      context: .
+      dockerfile: frontend/web-app/Dockerfile
+    volumes:
+      - /var/lib/web/data
+    environment:
+      - NEXTAUTH_SECRET=secret
+      - NEXTAUTH_URL=http://web-app
+      - API_URL=http://gateway-svc/
+      - ID_URL=http://identity-svc
+      - NEXT_PUBLIC_NOTIFY_URL=http://localhost:6001/notifications
+    ports:
+      - 3000:3000
 volumes:
   postgres_data:
   mongo_data:
