@@ -235,3 +235,64 @@ npm i @microsoft/signalr --dry-run
 ### npm run Build
 
 Issue with AuthOptions resolved by modifying route.ts based on [Article](https://stackoverflow.com/questions/76388994/next-js-13-4-and-nextauth-type-error-authoptions-is-not-assignable-to-type-n?rq=2)
+
+### Dockerfile
+
+To create a multi-stage Dockerfile for your Next.js v14 app, you can use the following example. Given that Next.js v14 is quite recent, it’s best to use the latest stable Node.js version compatible with it. As of now, Node.js 18 is a good choice.
+
+Here’s a Dockerfile based on your requirements:
+
+```Dockerfile
+# Stage 1: Install dependencies
+FROM node:18-alpine AS deps
+WORKDIR /app
+COPY frontend/web-app/package*.json ./
+RUN npm install
+
+# Stage 2: Build the application
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY frontend/web-app ./
+RUN npm run build
+
+# Stage 3: Run the application
+FROM node:18-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV production
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+EXPOSE 3000
+CMD ["npm", "run", "start"]
+```
+
+Explanation:
+
+Stage 1: Install dependencies
+
+- Uses the node:18-alpine image.
+- Sets the working directory to /app.
+- Copies the package.json and package-lock.json files.
+- Installs the dependencies.
+
+Stage 2: Build the application
+
+- Uses the node:18-alpine image.
+- Sets the working directory to /app.
+- Copies the node_modules from the previous stage.
+- Copies the entire application code.
+- Runs the build command.
+
+Stage 3: Run the application
+
+- Uses the node:18-alpine image.
+- Sets the working directory to /app.
+- Sets the NODE_ENV to production.
+- Copies the built application and necessary files from the build stage.
+- Exposes port 3000.
+- Starts the application using npm run start.
+
+This Dockerfile ensures that your final image is optimized and only contains the necessary files to run your Next.js application.
