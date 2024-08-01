@@ -327,7 +327,7 @@ RUN adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
 COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/next.config.js ./next.config.js
+COPY --from=builder /app/next.config.mjs ./next.config.mjs
 
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
@@ -342,3 +342,61 @@ CMD ["node", "server.js"]
 ```
 
 This second Dockerfile is slightly different and needs the /app/.next/standalone folder to copy into.
+
+### Update docker-compose.yml
+
+The following line will work on local docker:
+
+- hosts file for 12.0.0.1 points to id-carauctionnext.com
+- extra_hosts added to web-app and ip taken from running identity-svc: id.carauctionnext.com:172.18.0.7
+- modify identity-svc so it is accessible externally on port 80
+
+```yml
+web-app:
+  image: jpcassidy/carauction-web-app:latest
+  container_name: web-app
+  build:
+    context: .
+    dockerfile: frontend/web-app/Dockerfile
+  volumes:
+    - /var/lib/web/data
+  extra_hosts:
+    - id.carauctionnext.com:172.18.0.7
+  environment:
+    - NEXTAUTH_SECRET=secret
+    - NEXTAUTH_URL=http://localhost:3000
+    - NEXTAUTH_URL_INTERNAL=http://web-app:3000
+    - API_URL=http://gateway-svc/
+    - ID_URL=http://id.carauctionnext.com
+    - NEXT_PUBLIC_NOTIFY_URL=http://localhost:6001/notifications
+  ports:
+    - 3000:3000
+
+identity-svc:
+  image: jpcassidy/carauction-identity-svc:latest
+  container_name: identity-svc
+  build:
+    context: .
+    dockerfile: backend/src/Infrastructure/IdentityService/Dockerfile
+  environment:
+    - ASPNETCORE_ENVIRONMENT=Docker
+    - ASPNETCORE_URLS=http://+:80
+    - ASPNETCORE_HTTP_PORTS=80
+    - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=postgrespw;Database=identity
+  ports:
+    - 80:80
+  depends_on:
+    - postgres
+```
+
+Add the following into the hosts file so client site of web-app can access ID_URL:
+
+127.0.0.1 id.carauctionnext.com
+
+Run command: docker-compose -f docker-compose.yml up -d
+
+You may need to restart identityserver
+
+### Sharp Missing In Production
+
+[Explains need to install npm package for standalone running in container](https://nextjs.org/docs/messages/sharp-missing-in-production)
