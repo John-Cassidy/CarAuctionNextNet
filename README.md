@@ -453,9 +453,17 @@ File actions would have been taken:
   Create: backend\src\Notification\NotificationService\appsettings.Development.json
   Create: backend\src\Notification\NotificationService\appsettings.json
 
-dotnet sln add backend/src/Notification/NotificationService  
+dotnet sln add backend/src/Notification/NotificationService
 ```
 
 Nuget packages:
 
 - MassTransit.RabbitMQ: [https://masstransit.io/](https://masstransit.io/)
+
+## Publish to Production Locally
+
+This includes:
+
+- Add Ingress controller with nginx
+- Dockerizing client app
+- Adding SSL

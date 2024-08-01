@@ -231,3 +231,7 @@ npm i date-fns
 # https://www.npmjs.com/package/@microsoft/signalr
 npm i @microsoft/signalr --dry-run
 ```
+
+### npm run Build
+
+Issue with AuthOptions resolved by modifying route.ts based on [Article](https://stackoverflow.com/questions/76388994/next-js-13-4-and-nextauth-type-error-authoptions-is-not-assignable-to-type-n?rq=2)
