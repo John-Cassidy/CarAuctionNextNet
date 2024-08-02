@@ -93,10 +93,9 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
-      - ASPNETCORE_HTTP_PORTS=80
+      - ClientApp=http://app.carauctionnext.com
       - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=postgrespw;Database=identity
-    ports:
-      - 80:80
+      - VIRTUAL_HOST=id.carauctionnext.com
     depends_on:
       - postgres
     networks:
@@ -111,9 +110,8 @@ services:
     environment:
       - ASPNETCORE_ENVIRONMENT=Docker
       - ASPNETCORE_URLS=http://+:80
-      - ASPNETCORE_HTTP_PORTS=6001
-    ports:
-      - 6001:80
+      - ClientApp=http://app.carauctionnext.com
+      - VIRTUAL_HOST=api.carauctionnext.com
     networks:
       custom:
   bid-svc:
@@ -166,15 +164,26 @@ services:
       - id.carauctionnext.com:10.5.0.200
     environment:
       - NEXTAUTH_SECRET=secret
-      - NEXTAUTH_URL=http://localhost:3000
+      - NEXTAUTH_URL=http://app.carauctionnext.com
       - NEXTAUTH_URL_INTERNAL=http://web-app:3000
       - API_URL=http://gateway-svc/
       - ID_URL=http://id.carauctionnext.com
       - NEXT_PUBLIC_NOTIFY_URL=http://localhost:6001/notifications
-    ports:
-      - 3000:3000
+      - VIRTUAL_HOST=app.carauctionnext.com
+      - VIRTUAL_PORT=3000
     networks:
       custom:
+  nginx-proxy:
+    image: nginxproxy/nginx-proxy
+    ports:
+      - 80:80
+      - 443:443
+    networks:
+      custom:
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - ./devcerts:/etc/nginx/certs
+
 volumes:
   postgres_data:
   mongo_data:

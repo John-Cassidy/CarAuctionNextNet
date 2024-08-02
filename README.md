@@ -480,3 +480,15 @@ NETWORK ID     NAME                        DRIVER    SCOPE
 808066c93d0f   host                        host      local
 352caa6f2cd6   none                        null      local
 ```
+
+[nginxproxy image](hub.docker.com/r/nginxproxy/nginx-proxy)
+
+Update hosts file for reverse proxy services:
+
+```txt
+127.0.0.1 id.carauctionnext.com app.carauctionnext.com api.carauctionnext.com
+```
+
+Once this is done, then we can start containers and access web-app at:
+
+http://app.carauctionnext.com
