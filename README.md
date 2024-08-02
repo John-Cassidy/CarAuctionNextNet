@@ -453,9 +453,106 @@ File actions would have been taken:
   Create: backend\src\Notification\NotificationService\appsettings.Development.json
   Create: backend\src\Notification\NotificationService\appsettings.json
 
-dotnet sln add backend/src/Notification/NotificationService  
+dotnet sln add backend/src/Notification/NotificationService
 ```
 
 Nuget packages:
 
 - MassTransit.RabbitMQ: [https://masstransit.io/](https://masstransit.io/)
+
+## Publish to Production Locally
+
+This includes:
+
+- Setup Custom Network for containers
+- Give Identity Svc static address
+- Add Ingress controller with nginx
+- Dockerizing client app
+- Adding SSL
+
+The below command displays the default network assigned to containers. We will modify docker-compose to use custom network with ip range. Then assign identity svc static IP.
+
+```powershell
+docker network ls
+NETWORK ID     NAME                        DRIVER    SCOPE
+9df6265aaeb8   bridge                      bridge    local
+65a0d8536d8d   carauctionnextnet_default   bridge    local
+808066c93d0f   host                        host      local
+352caa6f2cd6   none                        null      local
+```
+
+[nginxproxy image](hub.docker.com/r/nginxproxy/nginx-proxy)
+
+Update hosts file for reverse proxy services:
+
+```txt
+127.0.0.1 id.carauctionnext.com app.carauctionnext.com api.carauctionnext.com
+```
+
+Once this is done, then we can start containers and access web-app at:
+
+http://app.carauctionnext.com
+
+### Adding SSL to reverse proxy gateway
+
+[Use OpenSSL to create SSL Cert](https://openssl-library.org/)
+
+#### Create Cert with OpenSSL
+
+[Article 1 on how to Create Self Signed Certificate](https://sockettools.com/kb/creating-certificate-using-openssl/)
+
+[Article 2 on how to Create Self Signed Certificate](https://www.humankode.com/asp-net-core/develop-locally-with-https-self-signed-certificates-and-asp-net-core/)
+
+##### Step 1: Create the Configuration File
+
+Create carauctionnext.com.conf file in devcerts folder to register these domains:
+
+- DNS.1 = id.carauctionnext.com
+- DNS.2 = app.carauctionnext.com
+- DNS.3 = api.carauctionnext.com
+
+##### Step 2: Generate the Key and Certificate
+
+run bash command from devcerts folder: `NOTE: modify password before running script!`
+
+```bash
+# with password:
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout carauctionnext.com.key -out carauctionnext.com.crt -config carauctionnext.com.conf -passin pass:[password]
+# without password:
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout carauctionnext.com.key -out carauctionnext.com.crt -config carauctionnext.com.conf
+```
+
+This will create carauctionnext.com.key, carauctionnext.com.crt
+
+##### Step 3: Create the PFX File
+
+Run bash command from nginx folder and enter password:
+
+```bash
+openssl pkcs12 -export -out carauctionnext.com.pfx -inkey carauctionnext.com.key -in carauctionnext.com.crt
+```
+
+This will create carauctionnext.com.pfx file.
+
+Import certificate into certmgr.exe on your machine.
+
+##### Summary
+
+- Register Domains: Use a domain registrar to register id.carauctionnext.com, app.carauctionnext.com, and api.carauctionnext.com.
+- Create Configuration File: Use the provided configuration file to specify the domains.
+- Generate Key and Certificate: Use OpenSSL to generate the .key and .crt files.
+- Create PFX File: Use OpenSSL to create the .pfx file.
+
+### Issue with SignalR Url in Nextjs
+
+the environment variable in .env.local is not being overridden by web-app in docker-compose file
+
+```txt
+.env-local
+NEXT_PUBLIC_NOTIFY_URL=http://localhost:6001/notifications
+
+docker-compose.yml > web-app > environment
+NEXT_PUBLIC_NOTIFY_URL=http://gateway-svc/notifications
+```
+
+[ongoing issue blog post](https://github.com/vercel/next.js/discussions/17641)

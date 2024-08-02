@@ -231,3 +231,177 @@ npm i date-fns
 # https://www.npmjs.com/package/@microsoft/signalr
 npm i @microsoft/signalr --dry-run
 ```
+
+### npm run Build
+
+Issue with AuthOptions resolved by modifying route.ts based on [Article](https://stackoverflow.com/questions/76388994/next-js-13-4-and-nextauth-type-error-authoptions-is-not-assignable-to-type-n?rq=2)
+
+### Dockerfile
+
+To create a multi-stage Dockerfile for your Next.js v14 app, you can use the following example. Given that Next.js v14 is quite recent, it’s best to use the latest stable Node.js version compatible with it. As of now, Node.js 18 is a good choice.
+
+Here’s a Dockerfile based on your requirements:
+
+```Dockerfile
+# Stage 1: Install dependencies
+FROM node:18-alpine AS deps
+WORKDIR /app
+COPY frontend/web-app/package*.json ./
+RUN npm install
+
+# Stage 2: Build the application
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY frontend/web-app ./
+RUN npm run build
+
+# Stage 3: Run the application
+FROM node:18-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV production
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
+
+EXPOSE 3000
+CMD ["npm", "run", "start"]
+```
+
+Explanation:
+
+Stage 1: Install dependencies
+
+- Uses the node:18-alpine image.
+- Sets the working directory to /app.
+- Copies the package.json and package-lock.json files.
+- Installs the dependencies.
+
+Stage 2: Build the application
+
+- Uses the node:18-alpine image.
+- Sets the working directory to /app.
+- Copies the node_modules from the previous stage.
+- Copies the entire application code.
+- Runs the build command.
+
+Stage 3: Run the application
+
+- Uses the node:18-alpine image.
+- Sets the working directory to /app.
+- Sets the NODE_ENV to production.
+- Copies the built application and necessary files from the build stage.
+- Exposes port 3000.
+- Starts the application using npm run start.
+
+This Dockerfile ensures that your final image is optimized and only contains the necessary files to run your Next.js application.
+
+```Dockerfile
+FROM node:18-alpine AS deps
+RUN apk add --no-cache libc6-compat
+WORKDIR /app
+
+COPY frontend/web-app/package*.json ./
+RUN  npm install --omit-dev
+
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY --from=deps /app/node_modules ./node_modules
+COPY frontend/web-app ./
+
+ENV NEXT_TELEMETRY_DISABLED 1
+
+RUN npm run build
+
+# production image, copy all files and run next
+FROM node:18-alpine AS runner
+WORKDIR /app
+
+ENV NODE_ENV production
+
+ENV NEXT_TELEMETRY_DISABLED 1
+
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/next.config.mjs ./next.config.mjs
+
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
+
+EXPOSE 3000
+
+ENV PORT 3000
+
+CMD ["node", "server.js"]
+```
+
+This second Dockerfile is slightly different and needs the /app/.next/standalone folder to copy into.
+
+### Update docker-compose.yml
+
+The following will work on local docker. Add the modifications below. However, the identity-svc IP address is temporary and will be changed to static IP once a custom network is added to docker-compose.
+
+- modify hosts file for 12.0.0.1 points to id-carauctionnext.com
+- modify web-app > environment > ID_URL=http://id.carauctionnext.com
+- modify web-app > add extra_hosts equal to internal ip taken from running identity-svc container: example ( id.carauctionnext.com:172.18.0.7)
+- modify identity-svc so it is accessible externally on port 80
+
+```yml
+web-app:
+  image: jpcassidy/carauction-web-app:latest
+  container_name: web-app
+  build:
+    context: .
+    dockerfile: frontend/web-app/Dockerfile
+  volumes:
+    - /var/lib/web/data
+  extra_hosts:
+    - id.carauctionnext.com:172.18.0.7
+  environment:
+    - NEXTAUTH_SECRET=secret
+    - NEXTAUTH_URL=http://localhost:3000
+    - NEXTAUTH_URL_INTERNAL=http://web-app:3000
+    - API_URL=http://gateway-svc/
+    - ID_URL=http://id.carauctionnext.com
+    - NEXT_PUBLIC_NOTIFY_URL=http://localhost:6001/notifications
+  ports:
+    - 3000:3000
+
+identity-svc:
+  image: jpcassidy/carauction-identity-svc:latest
+  container_name: identity-svc
+  build:
+    context: .
+    dockerfile: backend/src/Infrastructure/IdentityService/Dockerfile
+  environment:
+    - ASPNETCORE_ENVIRONMENT=Docker
+    - ASPNETCORE_URLS=http://+:80
+    - ASPNETCORE_HTTP_PORTS=80
+    - ConnectionStrings__DefaultConnection=Server=postgres:5432;User Id=postgres;Password=postgrespw;Database=identity
+  ports:
+    - 80:80
+  depends_on:
+    - postgres
+```
+
+Add the following into the hosts file so client site of web-app can access ID_URL:
+
+127.0.0.1 id.carauctionnext.com
+
+Run command: docker-compose -f docker-compose.yml up -d
+
+You may need to restart identityserver
+
+### Sharp Missing In Production
+
+[Explains need to install npm package for standalone running in container](https://nextjs.org/docs/messages/sharp-missing-in-production)
+
+```powershell
+npm i sharp
+```
