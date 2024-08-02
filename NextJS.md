@@ -401,3 +401,7 @@ You may need to restart identityserver
 ### Sharp Missing In Production
 
 [Explains need to install npm package for standalone running in container](https://nextjs.org/docs/messages/sharp-missing-in-production)
+
+```powershell
+npm i sharp
+```
