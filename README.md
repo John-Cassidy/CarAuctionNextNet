@@ -542,3 +542,17 @@ Import certificate into certmgr.exe on your machine.
 - Create Configuration File: Use the provided configuration file to specify the domains.
 - Generate Key and Certificate: Use OpenSSL to generate the .key and .crt files.
 - Create PFX File: Use OpenSSL to create the .pfx file.
+
+### Issue with SignalR Url in Nextjs
+
+the environment variable in .env.local is not being overridden by web-app in docker-compose file
+
+```txt
+.env-local
+NEXT_PUBLIC_NOTIFY_URL=http://localhost:6001/notifications
+
+docker-compose.yml > web-app > environment
+NEXT_PUBLIC_NOTIFY_URL=http://gateway-svc/notifications
+```
+
+[ongoing issue blog post](https://github.com/vercel/next.js/discussions/17641)
