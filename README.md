@@ -464,6 +464,19 @@ Nuget packages:
 
 This includes:
 
+- Setup Custom Network for containers
+- Give Identity Svc static address
 - Add Ingress controller with nginx
 - Dockerizing client app
 - Adding SSL
+
+The below command displays the default network assigned to containers. We will modify docker-compose to use custom network with ip range. Then assign identity svc static IP.
+
+```powershell
+docker network ls
+NETWORK ID     NAME                        DRIVER    SCOPE
+9df6265aaeb8   bridge                      bridge    local
+65a0d8536d8d   carauctionnextnet_default   bridge    local
+808066c93d0f   host                        host      local
+352caa6f2cd6   none                        null      local
+```

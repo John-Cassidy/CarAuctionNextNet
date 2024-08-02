@@ -345,10 +345,11 @@ This second Dockerfile is slightly different and needs the /app/.next/standalone
 
 ### Update docker-compose.yml
 
-The following line will work on local docker:
+The following will work on local docker. Add the modifications below. However, the identity-svc IP address is temporary and will be changed to static IP once a custom network is added to docker-compose.
 
-- hosts file for 12.0.0.1 points to id-carauctionnext.com
-- extra_hosts added to web-app and ip taken from running identity-svc: id.carauctionnext.com:172.18.0.7
+- modify hosts file for 12.0.0.1 points to id-carauctionnext.com
+- modify web-app > environment > ID_URL=http://id.carauctionnext.com
+- modify web-app > add extra_hosts equal to internal ip taken from running identity-svc container: example ( id.carauctionnext.com:172.18.0.7)
 - modify identity-svc so it is accessible externally on port 80
 
 ```yml
