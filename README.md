@@ -556,3 +556,21 @@ NEXT_PUBLIC_NOTIFY_URL=http://gateway-svc/notifications
 ```
 
 [ongoing issue blog post](https://github.com/vercel/next.js/discussions/17641)
+
+## Publish to Kubernetes Locally
+
+### using Polly to retry connections to databases and rabbitmq
+
+Add nuget packages:
+
+- Polly
+- Microsoft.Extensions.Http.Polly
+
+To projects:
+
+- AuctionService
+- BiddingService
+- IdentityService
+- SearchService
+
+Setup Rety Policies when Postgres is not available.
