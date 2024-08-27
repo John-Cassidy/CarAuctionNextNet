@@ -495,7 +495,7 @@ Update hosts file for reverse proxy services:
 
 Once this is done, then we can start containers and access web-app at:
 
-http://app.carauctionnext.com
+[http://app.carauctionnext.com](http://app.carauctionnext.com)
 
 ### Adding SSL to reverse proxy gateway
 
