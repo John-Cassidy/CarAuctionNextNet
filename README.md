@@ -2,6 +2,8 @@
 
 How to build a microservices based app using .Net, NextJS, IdentityServer, RabbitMQ running on Docker and Kubernetes
 
+You can find the updated 2024 repository for the Udemy Course [here](https://github.com/TryCatchLearn/carsties-2024)
+
 ## dotnet tools
 
 ```powershell
